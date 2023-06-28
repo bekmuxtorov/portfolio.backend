@@ -3,6 +3,8 @@ from . import models
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    images = serializers.ImageField()
+
     class Meta:
         model = models.Project
         fields = '__all__'

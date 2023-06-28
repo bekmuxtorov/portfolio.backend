@@ -69,6 +69,7 @@ class Image(models.Model):
         upload_to='project_image/',
         verbose_name="Image",
     )
+    status = models.BooleanField(default=False, verbose_name='Holati')
     create_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
