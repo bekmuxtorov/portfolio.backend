@@ -11,11 +11,13 @@ class ImageInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'demo_url', 'direction', 'get_add_date')
+    list_display = ('name', 'id', 'demo_url', 'direction',
+                    'sequence_number', 'get_add_date')
     list_filter = ('direction', )
     search_fields = ('name', 'demo_url', 'short_description')
 
     inlines = (ImageInline,)
+    ordering = ('sequence_number',)
 
     def get_add_date(self, obj):
         return obj.create_at.strftime("%d/%m/%Y")
