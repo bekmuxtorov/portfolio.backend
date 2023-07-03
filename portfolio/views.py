@@ -12,16 +12,17 @@ class ProjectListAPIView(generics.ListAPIView):
     queryset = models.Project.objects.all()
     serializer_class = serializers.ProjectSerializer
     lookup_field = 'id'
+    ordering = ['sequence_number', '-create_at']
 
     def list(self, request):
-        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(
+            self.get_queryset()).order_by('-sequence_number')
         serializer = self.get_serializer(queryset, many=True)
         serializer_data = serializer.data
         for data in serializer_data:
             instance = self.queryset.get(pk=data['id'])
             images = instance.images.all().filter(status=True).order_by('-id')
-            data['images'] = serializers.ImageSerializer(
-                images, many=True).data
+            data['images'] = serializers.ImageSerializer(images, many=True).data
         return Response(serializer_data)
 
 
