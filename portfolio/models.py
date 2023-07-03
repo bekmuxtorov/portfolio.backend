@@ -6,6 +6,7 @@ from django.db import models
 DIRECTIONS = [
     ('frontend', 'Frontend'),
     ('backend', 'Backend'),
+    ('full_stack', 'Full Stack'),
     ('telegram_bot', 'Telegram bot')
 ]
 
@@ -46,6 +47,11 @@ class Project(models.Model):
         verbose_name="To'liq ma'lumot"
     )
     create_at = models.DateTimeField(auto_now_add=True)
+    sequence_number = models.IntegerField(
+        verbose_name='Tartib raqami',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Project'
