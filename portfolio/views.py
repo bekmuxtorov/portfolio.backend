@@ -35,8 +35,11 @@ class ProjectDetailAPIView(generics.RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
         images = instance.images.all().filter(status=True).order_by('-id')
+        comments = instance.comments.all().filter(status=True).order_by('-create_at')
         serializer = self.get_serializer(instance=instance)
         serializer_data = serializer.data
         serializer_data['images'] = serializers.ImageSerializer(
             images, many=True).data
+        serializer_data['comments'] = serializers.CommentSerializer(
+            comments, many=True).data
         return Response(serializer_data)

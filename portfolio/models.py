@@ -81,3 +81,28 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Image'
         verbose_name_plural = 'Images'
+
+
+class Comment(models.Model):
+    project = models.ForeignKey(
+        to=Project,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    full_name = models.CharField(
+        max_length=200,
+        verbose_name='User ismi familiyasi'
+    )
+    text = models.TextField(max_length=1000, verbose_name='User fikri')
+    status = models.BooleanField(default=False, verbose_name='Holati')
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return ' || '.join([self.project.name, self.full_name])
+
+    def get_date(self):
+        return self.create_at.strftime("%d/%m/%Y")
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'

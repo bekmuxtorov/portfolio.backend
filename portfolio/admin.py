@@ -1,6 +1,6 @@
 from django.utils.safestring import mark_safe
 from django.contrib import admin
-from .models import Project, Image
+from .models import Project, Image, Comment
 
 # Register your models here.
 
@@ -31,3 +31,11 @@ class ImageAdmin(admin.ModelAdmin):
     def view_image(self, obj):
         return mark_safe(f'<img src="{obj.image.url}" width="80" height="80" style="border-radius:10%;" />')
     view_image.short_description = 'Rasm'
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'project', 'status', 'get_date')
+    ordering = ('-create_at',)
+    list_filter = ('status',)
+    list_editable = ('status',)
