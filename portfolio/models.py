@@ -1,5 +1,5 @@
-from django.utils.html import mark_safe
 from django.db import models
+from datetime import timezone, datetime
 
 # Create your models here.
 
@@ -102,6 +102,18 @@ class Comment(models.Model):
 
     def get_date(self):
         return self.create_at.strftime("%d/%m/%Y")
+
+    def date_difference(self):
+        time_delta = datetime.now(timezone.utc) - self.create_at
+        if time_delta.days == 0:
+            if time_delta.seconds < 60:
+                return f'{time_delta.seconds} sekund'
+
+            if time_delta.seconds < 3600:
+                return f'{time_delta.seconds // 60} minut {time_delta.seconds % 60} sekund'
+
+            return f'{time_delta.seconds // 3600} soat'
+        return f'{time_delta.days} kun'
 
     class Meta:
         verbose_name = 'Comment'
