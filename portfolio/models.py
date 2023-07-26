@@ -94,7 +94,7 @@ class Comment(models.Model):
         verbose_name='User ismi familiyasi'
     )
     text = models.TextField(max_length=1000, verbose_name='User fikri')
-    status = models.BooleanField(default=False, verbose_name='Holati')
+    status = models.BooleanField(default=True, verbose_name='Holati')
     create_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

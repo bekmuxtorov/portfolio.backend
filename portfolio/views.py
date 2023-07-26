@@ -1,3 +1,4 @@
+import time
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
@@ -43,3 +44,8 @@ class ProjectDetailAPIView(generics.RetrieveAPIView):
         serializer_data['comments'] = serializers.CommentSerializer(
             comments, many=True).data
         return Response(serializer_data)
+
+
+class CommentCreateAPIView(generics.CreateAPIView):
+    queryset = models.Comment.objects.all()
+    serializer_class = serializers.CommentSerializer

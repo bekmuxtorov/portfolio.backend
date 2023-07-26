@@ -37,5 +37,5 @@ class ImageAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'project', 'status', 'get_date')
     ordering = ('-create_at',)
-    list_filter = ('status',)
+    list_filter = ('status', 'project')
     list_editable = ('status',)
