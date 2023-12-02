@@ -118,3 +118,15 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+
+class MyLink(models.Model):
+    description = models.TextField(verbose_name="Short desription", blank=True)
+    link = models.URLField(verbose_name="Link")
+    qr_image = models.ImageField(
+        upload_to='qr_images/', verbose_name="image of QR kod", blank=True, null=True)
+    created_at = models.DateTimeField(
+        verbose_name="Added time", auto_now_add=True)
+
+    def __str__(self):
+        return self.description[::20]
