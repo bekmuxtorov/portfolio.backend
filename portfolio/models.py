@@ -127,6 +127,7 @@ class MyLink(models.Model):
         upload_to='qr_images/', verbose_name="image of QR kod", blank=True, null=True)
     created_at = models.DateTimeField(
         verbose_name="Added time", auto_now_add=True)
+    is_private = models.BooleanField(default=False, verbose_name="Is Private")
 
     def __str__(self):
         return self.description[::20]
