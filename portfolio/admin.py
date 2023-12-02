@@ -1,6 +1,6 @@
 from django.utils.safestring import mark_safe
 from django.contrib import admin
-from .models import Project, Image, Comment
+from .models import Project, Image, Comment, MyLink
 
 # Register your models here.
 
@@ -39,3 +39,9 @@ class CommentAdmin(admin.ModelAdmin):
     ordering = ('-create_at',)
     list_filter = ('status', 'project')
     list_editable = ('status',)
+
+
+@admin.register(MyLink)
+class MyLinkAdmin(admin.ModelAdmin):
+    list_display = ("description", "id", "qr_image", "link", "created_at")
+    ordering = ("-created_at",)
