@@ -45,3 +45,4 @@ class CommentAdmin(admin.ModelAdmin):
 class MyLinkAdmin(admin.ModelAdmin):
     list_display = ("description", "id", "qr_image", "link", "created_at")
     ordering = ("-created_at",)
+    list_filter = ("is_private",)
