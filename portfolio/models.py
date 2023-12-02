@@ -1,5 +1,9 @@
+from django.core.files import File
 from django.db import models
 from datetime import timezone, datetime
+from qrcode import QRCode
+from qrcode import constants as qrcode_constants
+from io import BytesIO
 
 # Create your models here.
 
@@ -130,4 +134,25 @@ class MyLink(models.Model):
     is_private = models.BooleanField(default=False, verbose_name="Is Private")
 
     def __str__(self):
-        return self.description[::20]
+        return self.description[:20]
+
+    def save(self, *args, **kwargs):
+        if self.link != self.__class__.objects.get(pk=self.pk).link:
+            self.qr_image.delete()
+
+        qr = QRCode(
+            version=1,
+            error_correction=qrcode_constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(self.link)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="black", back_color="white")
+
+        buffer = BytesIO()
+        img.save(buffer)
+        self.qr_image.save(f'{self.id}.png', File(buffer), save=False)
+
+        super(MyLink, self).save(*args, **kwargs)
