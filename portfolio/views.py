@@ -49,3 +49,13 @@ class ProjectDetailAPIView(generics.RetrieveAPIView):
 class CommentCreateAPIView(generics.CreateAPIView):
     queryset = models.Comment.objects.all()
     serializer_class = serializers.CommentSerializer
+
+
+class MyLinkListAPIView(generics.ListAPIView):
+    queryset = models.MyLink.objects.filter(is_private=False).all()
+    serializer_class = serializers.MyLinkSerializer
+
+
+class MyLinkDetailAPIView(generics.RetrieveAPIView):
+    queryset = models.MyLink.objects.filter(is_private=False).all()
+    serializer_class = serializers.MyLinkSerializer
