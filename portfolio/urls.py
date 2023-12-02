@@ -11,6 +11,10 @@ urlpatterns = [
 
     # for comment section
     path('comments/create/', views.CommentCreateAPIView.as_view()),
+
+    # for my_links section
+    path('my_links/', views.MyLinkListAPIView.as_view()),
+    path('my_links/<int:pk>', views.MyLinkDetailAPIView.as_view())
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
